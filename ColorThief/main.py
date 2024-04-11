@@ -1,19 +1,21 @@
+
 import numpy as np
 import cv2
 from sklearn.cluster import KMeans
 
-
+#function for dominant color
 def get_dominant_colors(img_path,num_colors=1):
     img = cv2.imread(img_path)
 
-    pixels = img.reshape(-1,3)
+    pixels = img.reshape(-1,3) #reshape img to 2D array of pixels
 
     kmeans = KMeans(n_clusters=num_colors)
     kmeans.fit(pixels)
 
     dominant_colors = kmeans.cluster_centers_.astype(int)
-    return dominant_colors
+    return dominant_colors  #returning cluster center which is dominant
 
+#function for all color
 def get_all_colors(img_path,num_color):
     img = cv2.imread(img_path)
 
@@ -54,16 +56,17 @@ def display_all_colors(colors):
 
 
 if __name__=="__main__":
-    img_path = "sample.jpeg"
+    img_path = "sample.jpeg"  #image path
 
-    num_colors = 1
-    num_color=9
+    num_colors = 1   #number of dominant color
+    num_color=9      #total number of color present to find
 
-    dominant_colors = get_dominant_colors(img_path, num_colors)
-    display_colors(dominant_colors)
+    dominant_colors = get_dominant_colors(img_path, num_colors) #calling the fun
+    display_colors(dominant_colors) #displying it
 
     all_colors = get_all_colors(img_path,num_color)
     display_all_colors(all_colors)
 
     print("Dominant color:",dominant_colors)
-    print("All colors RGB format:", all_colors)
+    print("All colors RGB format:",all_colors)
+
